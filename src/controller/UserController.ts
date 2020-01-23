@@ -11,8 +11,10 @@ export class UserController {
     async handle(getUserRequest: GetUserRequest) {
         const user = await this.userService.getUser(getUserRequest.userId());
 
-        if (user != null) {
+        if (user) {
             return UserController.buildSuccessResponse(user);
+        } else {
+            return UserController.buildNotFoundResponse();
         }
     }
 
@@ -24,5 +26,10 @@ export class UserController {
         }
     }
 
+    static buildNotFoundResponse() {
+        console.log(`Returning buildNotFoundResponse`);
+        return {
+            "statusCode": 404,
+        }
+    }
 }
-

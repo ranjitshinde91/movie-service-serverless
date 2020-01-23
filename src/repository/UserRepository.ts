@@ -18,6 +18,9 @@ export class UserRepository {
         };
         console.log(`Finding users associated with userId: ${userId}`);
         const response: GetItemOutput = await dynamoDbClient.get(request).promise();
-        return User.from(response.Item);
+        if (response.Item) {
+            return User.from(response.Item)
+        }
+        return null;
     }
 }
