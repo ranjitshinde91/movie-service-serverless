@@ -1,8 +1,7 @@
-import {APIGatewayEvent, APIGatewayProxyResult} from "aws-lambda";
+import {APIGatewayEvent} from "aws-lambda";
+import {UserController} from "./controller/UserController";
+import {GetUserRequest} from "./model/GetUserRequest";
 
-export const handle = async (event: Partial<APIGatewayEvent>)=>{
-    return{
-        statusCode: 200,
-        body:""
-    }
-}
+export const handle = async (event: Partial<APIGatewayEvent>) => {
+    return await new UserController().handle(new GetUserRequest(event));
+};

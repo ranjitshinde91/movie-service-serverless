@@ -27,6 +27,17 @@ Resources:
               Service:
                 - "lambda.amazonaws.com"
 
+  NudgeAssociationTable:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      TableName: "users"
+      AttributeDefinitions:
+        - AttributeName: "userId"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "userId"
+          KeyType: "HASH"
+
   UserServiceApiGateway:
     Type: AWS::ApiGateway::RestApi
     Properties:
