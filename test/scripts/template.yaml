@@ -1,0 +1,70 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "user service Cloud formation template"
+
+Resources:
+  UserServiceFunction:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      FunctionName: "user-service"
+      Code:
+        S3Bucket: "user-service"
+        S3Key: "user-service.zip"
+      Handler: "handler.handle"
+      Runtime: "nodejs10.x"
+      Role:  !GetAtt "UserServiceFunctionRole.Arn"
+
+  UserServiceFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "UserServiceFunctionRole"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Action:
+              - "sts:AssumeRole"
+            Principal:
+              Service:
+                - "lambda.amazonaws.com"
+
+  UserServiceApiGateway:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: "user-service-api-gw"
+
+  UsersResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId: !GetAtt "UserServiceApiGateway.RootResourceId"
+      PathPart: "users"
+      RestApiId: !Ref "UserServiceApiGateway"
+
+  UserIdResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId: !Ref "UsersResource"
+      PathPart: "{userId}"
+      RestApiId: !Ref "UserServiceApiGateway"
+
+  GetUserByUserIdMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: "GET"
+      AuthorizationType: "NONE"
+      RestApiId: !Ref "UserServiceApiGateway"
+      ResourceId: !Ref "UserIdResource"
+      Integration:
+        IntegrationHttpMethod: "GET"
+        Type: "AWS_PROXY"
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - "aws"
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - UserServiceFunction
+                  - Arn
+              - /invocations

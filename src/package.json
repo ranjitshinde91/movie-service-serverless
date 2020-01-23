@@ -1,0 +1,14 @@
+{
+  "name": "user-service-serverless",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "archive": "cd ../dist/ && zip -r ../src/user-service.zip .",
+    "localstack:config": "npm run archive && npm run run:config",
+    "run:config": "cd ../test/scripts/ && ./config.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}

@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+user-service-serverless.iml
+coverage
+.nyc_output
+dist
+node_modules
+test/scripts/.api_id
