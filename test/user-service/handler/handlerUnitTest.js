@@ -1,5 +1,6 @@
 const handler = require("../../../src/user-service/handler");
 const UserController = require("../../../src/user-service/src/controller/UserController");
+const FindUserRequest = require("../../../src/user-service/src/model/FindUserRequest");
 
 const sinon = require("sinon");
 const sinonTest = require("sinon-test");
@@ -9,15 +10,13 @@ const expect = chai.expect;
 
 describe("handlerUnitTest", () => {
 
-    it("should return http status code 200", test(async function () {
+    it("should handle find User event", test(async function () {
         const event = {};
 
-        this.stub(UserController.prototype, "handle").returns({
-            statusCode: 200,
-        });
+        const UserControllerStub = this.stub(UserController.prototype, "handle");
 
         const response = await handler.handle(event);
 
-        expect(response.statusCode).to.be.eql(200)
+        sinon.assert.calledWith(UserControllerStub, new FindUserRequest(event));
     }));
 });
