@@ -20,8 +20,9 @@ describe("handler (Integration)", () => {
 
     it("should return user given user exists for a user id", (async function () {
         const userId = "user-101";
+        const username = "John";
 
-        await UserFixture.add(new User(userId, "Ranjit"));
+        await UserFixture.save(new User(userId, username));
 
         const apiUrl = `http://localhost:4567/restapis/${apiId}/test/_user_request_/users/${userId}`;
 
@@ -31,7 +32,7 @@ describe("handler (Integration)", () => {
 
         const user = response.data;
         expect(user.userId).to.be.equal(userId);
-        expect(user.firstName).to.be.equal("Ranjit");
+        expect(user.username).to.be.equal(username);
     })).timeout(15000);
 
     it("should return http status not found given user does not exists for a user id", (async function () {
@@ -42,7 +43,7 @@ describe("handler (Integration)", () => {
     })).timeout(15000);
 
     async function assertNotFoundOn(apiUrl) {
-        await axios.default.get(apiUrl)
+        await axios.get(apiUrl)
             .then(() => {
                 throw new Error();
             }, error => {

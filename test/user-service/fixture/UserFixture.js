@@ -6,7 +6,6 @@ const userTableName = Properties.userTableName();
 class UserFixture {
 
     static async deleteAll() {
-        console.log("deleting all users from table.")
         const users = await this.findAll();
         for (let user of users) {
             await this._delete(user)
@@ -30,12 +29,12 @@ class UserFixture {
         }).promise()
     }
 
-    static async add(user) {
+    static async save(user) {
         return dynamoDbClient.put({
             TableName: userTableName,
             Item: {
                 userId: user.userId,
-                firstName: user.firstName,
+                username: user.username,
             }
         }).promise();
     }

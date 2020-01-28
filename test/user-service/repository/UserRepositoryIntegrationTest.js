@@ -15,7 +15,7 @@ describe("UserRepositoryIntegrationTest", () => {
         const userId = "userId";
         const username = "user1";
 
-        await UserFixture.add(new User(userId, username));
+        await UserFixture.save(new User(userId, username));
 
         const user = await new UserRepository().findBy(userId);
 
