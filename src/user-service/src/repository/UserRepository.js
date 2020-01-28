@@ -5,7 +5,7 @@ const userTableName = Properties.userTableName();
 
 class UserRepository {
 
-    async find(userId) {
+    async findBy(userId) {
         const request = {
             TableName: userTableName,
             Key: {
@@ -14,6 +14,7 @@ class UserRepository {
         };
         console.log(`Finding users associated with userId: ${userId}`);
         const response = await dynamoDbClient.get(request).promise();
+
         if (response.Item) {
             return User.from(response.Item)
         }

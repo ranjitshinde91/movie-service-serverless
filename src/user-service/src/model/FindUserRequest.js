@@ -1,4 +1,4 @@
-class GetUserRequest {
+class FindUserRequest {
 
     constructor(event) {
         this.event = event;
@@ -9,4 +9,4 @@ class GetUserRequest {
     }
 }
 
-module.exports = GetUserRequest;
+module.exports = FindUserRequest;

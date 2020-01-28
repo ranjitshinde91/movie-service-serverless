@@ -1,12 +1,12 @@
 class User {
 
-    constructor(userId, firstName) {
+    constructor(userId, username) {
         this.userId = userId;
-        this.firstName = firstName;
+        this.username = username;
     }
 
     static from(item) {
-        return new User(item.userId, item.firstName)
+        return new User(item.userId, item.username)
     }
 }
 module.exports = User;

@@ -1,4 +1,3 @@
-// noinspection JSUnresolvedFunction
 const chai = require("chai");
 const expect = chai.expect;
 
@@ -12,22 +11,22 @@ describe("UserRepositoryIntegrationTest", () => {
         await UserFixture.deleteAll();
     });
 
-    it("should find user given user id", async function () {
+    it("should return user given user id", async function () {
         const userId = "userId";
-        const firstName = "John";
+        const username = "user1";
 
-        await UserFixture.add(new User(userId, firstName));
+        await UserFixture.add(new User(userId, username));
 
-        const user = await new UserRepository().find(userId);
+        const user = await new UserRepository().findBy(userId);
 
         expect(user.userId).to.be.eql(userId);
-        expect(user.firstName).to.be.eql(firstName);
+        expect(user.username).to.be.eql(username);
     });
 
-    it("should return null given user with userId does not exists", async function () {
+    it("should return null given user does not exists", async function () {
         const userId = "non-existing-user-id";
 
-        const user = await new UserRepository().find(userId);
+        const user = await new UserRepository().findBy(userId);
 
         expect(user).to.be.null;
     });

@@ -1,6 +1,6 @@
 const UserController = require("./src/controller/UserController");
-const GetUserRequest = require("./src/model/GetUserRequest");
+const FindUserRequest = require("./src/model/FindUserRequest");
 
 exports.handle = async (event) => {
-    return await new UserController().handle(new GetUserRequest(event));
+    return await new UserController().handle(new FindUserRequest(event));
 };

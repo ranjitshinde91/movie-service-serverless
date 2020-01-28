@@ -1,31 +1,33 @@
-const UserService = require("../service/UserService");
+const UserRepository = require("../repository/UserRepository");
 
 class UserController {
 
     constructor() {
-        this.userService = new UserService();
+        this.userRepository = new UserRepository();
     }
 
-    async handle(getUserRequest) {
-        const user = await this.userService.getUser(getUserRequest.userId());
+    async handle(findUserRequest) {
+        const user = await this.userRepository.findBy(findUserRequest.userId());
 
         if (user) {
-            return UserController.buildSuccessResponse(user);
-        } else {
-            return UserController.buildNotFoundResponse();
+            return UserController.successResponse(user);
         }
+        return UserController.notFoundResponse();
     }
 
-    static buildSuccessResponse(body) {
-        console.log(`Returning SuccessResponse with body ${JSON.stringify(body)}`);
+    static successResponse(body) {
+        console.log(`returning success response.`);
         return {
             "statusCode": 200,
-            "body": JSON.stringify(body)
+            "body": body,
+            "headers": {
+                "Content-Type": "application/json"
+            }
         }
     }
 
-    static buildNotFoundResponse() {
-        console.log(`Returning buildNotFoundResponse`);
+    static notFoundResponse() {
+        console.log(`returning not found response`);
         return {
             "statusCode": 404,
         }

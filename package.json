@@ -5,7 +5,7 @@
   "scripts": {
     "test": "env NODE_ENV=local AwsRegion=us-east-1 nyc --reporter=html --reporter=lcov --reporter=text mocha test/user-service/*",
     "delay": "sleep 15",
-    "clearFiles": "rm -f src/user-service.zip",
+    "clearFiles": "rm -f src/user-service/user-service.zip",
     "localstack:init": "docker-compose -f test/docker-compose.yml up -d",
     "localstack:destroy": "docker-compose -f test/docker-compose.yml down",
     "localstack:config-user-service": "cd src/user-service/ && npm run localstack:config",
