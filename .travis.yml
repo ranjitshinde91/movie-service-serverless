@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - "10"
+
+build_service_job: &BUILD_SERVICE_JOB
+
+  install:
+    - travis_retry npm install
+    - cd -
+
+  script:
+    - npm i
+    - cd src/user-service/
+    - npm i
+    - npm t
+    - cd -
+
+jobs:
+  include:
+    - <<: *BUILD_SERVICE_JOB
+      name: "Build Users API"
+      if: type = push AND branch = master

@@ -16,23 +16,17 @@ const localDynamoDbEndpoint = function () {
     const host = process.env.LOCALSTACK_HOSTNAME || 'localhost';
     return `http://${host}:4569`;
 };
-const isLocalEnv = () => env() === 'local';
 
-const awsRegion = () => {
-    const defaultAwsRegion = 'ap-south-1';
-    return isLocalEnv() ? 'us-east-1' : defaultAwsRegion;
-};
+const isLocalEnv = () => env() === 'local';
 
 const dynamoDbClientOptions = function () {
     if (isLocalEnv()) {
         return {
-            region: awsRegion(),
+            region: 'us-east-1',
             endpoint: localDynamoDbEndpoint()
         };
     } else {
-        return {
-            region: awsRegion()
-        };
+        return {}
     }
 };
 
