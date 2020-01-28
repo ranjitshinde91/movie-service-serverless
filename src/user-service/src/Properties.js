@@ -7,7 +7,7 @@ const env = () => {
     return process.env.Env || defaultEnvironment;
 };
 
-export function userTableName() {
+function userTableName() {
     const defaultTable = 'users';
     return process.env.UserTableName || defaultTable;
 }
@@ -16,7 +16,7 @@ const localDynamoDbEndpoint = function () {
     const host = process.env.LOCALSTACK_HOSTNAME || 'localhost';
     return `http://${host}:4569`;
 };
-export const isLocalEnv = () => env() === 'local';
+const isLocalEnv = () => env() === 'local';
 
 const awsRegion = () => {
     const defaultAwsRegion = 'ap-south-1';
@@ -36,6 +36,11 @@ const dynamoDbClientOptions = function () {
     }
 };
 
-const _dynamoDbClient = new AWSSDK.DynamoDB.DocumentClient(dynamoDbClientOptions());
+function dynamoDbClient() {
+    return new AWSSDK.DynamoDB.DocumentClient(dynamoDbClientOptions());
+}
 
-export const dynamoDbClient = () => _dynamoDbClient;
+module.exports = {
+    userTableName,
+    dynamoDbClient
+};

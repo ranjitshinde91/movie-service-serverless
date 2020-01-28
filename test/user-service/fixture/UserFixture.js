@@ -1,12 +1,12 @@
-import * as Properties from "../../src/properties";
-import {User} from "../../src/model/User";
+const Properties = require("../../../src/user-service/src/Properties");
 
 const dynamoDbClient = Properties.dynamoDbClient();
 const userTableName = Properties.userTableName();
 
-export class UserFixture {
+class UserFixture {
 
     static async deleteAll() {
+        console.log("deleting all users from table.")
         const users = await this.findAll();
         for (let user of users) {
             await this._delete(user)
@@ -21,16 +21,16 @@ export class UserFixture {
         return response.Items
     }
 
-    static async _delete(user: User) {
+    static async _delete(user) {
         return await dynamoDbClient.delete({
             TableName: userTableName,
             Key: {
-                "userId": user.userId,
-            }
+                "userId": user.userId
+            },
         }).promise()
     }
 
-    static async add(user: User) {
+    static async add(user) {
         return dynamoDbClient.put({
             TableName: userTableName,
             Item: {
@@ -40,3 +40,5 @@ export class UserFixture {
         }).promise();
     }
 }
+
+module.exports = UserFixture;

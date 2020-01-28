@@ -1,14 +1,12 @@
-import {GetUserRequest} from "../model/GetUserRequest";
-import {UserService} from "../service/UserService";
+const UserService = require("../service/UserService");
 
-export class UserController {
-    private readonly userService: UserService;
+class UserController {
 
     constructor() {
         this.userService = new UserService();
     }
 
-    async handle(getUserRequest: GetUserRequest) {
+    async handle(getUserRequest) {
         const user = await this.userService.getUser(getUserRequest.userId());
 
         if (user) {
@@ -18,7 +16,7 @@ export class UserController {
         }
     }
 
-    static buildSuccessResponse(body: any) {
+    static buildSuccessResponse(body) {
         console.log(`Returning SuccessResponse with body ${JSON.stringify(body)}`);
         return {
             "statusCode": 200,
@@ -33,3 +31,5 @@ export class UserController {
         }
     }
 }
+
+module.exports = UserController;

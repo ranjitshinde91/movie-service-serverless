@@ -8,8 +8,5 @@ services:
     environment:
       - SERVICES=${SERVICES- }
       - DEBUG=1
-      - DATA_DIR=${DATA_DIR- }
-      - PORT_WEB_UI=${PORT_WEB_UI- }
-      - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR-docker-reuse}
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"

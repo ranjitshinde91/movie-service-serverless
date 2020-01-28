@@ -1,20 +1,20 @@
-import * as chai from "chai";
+const UserFixture = require("../fixture/UserFixture");
+const User = require("../../../src/user-service/src/model/User");
 
-import * as fs from "fs";
-import * as path from "path";
-
-import * as axios from "axios";
-import {UserFixture} from "../fixture/UserFixture";
-import {User} from "../../src/model/User";
-
+const fs = require("fs");
+const path = require("path");
+const axios = require("axios");
+const chai = require("chai");
+chai.use(require("chai-as-promised"));
+const assert = chai.assert;
 const expect = chai.expect;
 
 describe("handler (Integration)", () => {
 
-    let apiId = '';
+    let apiId = "";
 
     beforeEach(async () => {
-        apiId = fs.readFileSync(path.resolve('test/scripts/.api_id'), 'utf8').trim();
+        apiId = fs.readFileSync(path.resolve("test/scripts/.api_id"), "utf8").trim();
         await UserFixture.deleteAll();
     });
 
