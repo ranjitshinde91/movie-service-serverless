@@ -8,12 +8,8 @@ build_service_job: &BUILD_SERVICE_JOB
     - travis_retry npm install
     - cd -
 
-  script:
-    - npm i
-    - cd src/user-service/
-    - npm i
-    - npm t
-    - cd -
+  script: travis_build.sh
+
 
 jobs:
   include:
