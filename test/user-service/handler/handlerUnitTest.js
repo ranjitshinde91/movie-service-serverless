@@ -9,14 +9,13 @@ const chai = require("chai");
 const expect = chai.expect;
 
 describe("handlerUnitTest", () => {
-
-    it("should handle find User event", test(async function () {
+    it("should return the response returned by UserController", test(async function () {
         const event = {};
 
-        const UserControllerStub = this.stub(UserController.prototype, "handle");
+        this.stub(UserController.prototype, "handle").returns({statusCode: 404});
 
         const response = await handler.handle(event);
 
-        sinon.assert.calledWith(UserControllerStub, new FindUserRequest(event));
+        expect(response.statusCode).to.be.eql(404);
     }));
 });
