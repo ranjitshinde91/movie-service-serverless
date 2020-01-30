@@ -12,7 +12,7 @@ describe("UserRepositoryIntegrationTest", () => {
     });
 
     it("should return user given user id", async function () {
-        const userId = "userId";
+        const userId   = "userId";
         const username = "user1";
 
         await UserFixture.save(new User(userId, username));

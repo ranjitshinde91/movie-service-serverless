@@ -15,11 +15,11 @@ class UserController {
         return UserController.notFoundResponse();
     }
 
-    static successResponse(body) {
+    static successResponse(user) {
         console.log(`returning success response.`);
         return {
             "statusCode": 200,
-            "body": body,
+            "body": user,
             "headers": {
                 "Content-Type": "application/json"
             }

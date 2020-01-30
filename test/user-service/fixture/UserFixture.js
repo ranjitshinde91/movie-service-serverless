@@ -13,9 +13,10 @@ class UserFixture {
     }
 
     static async findAll() {
-        const response = await dynamoDbClient.scan({
-            TableName: userTableName
-        }).promise();
+        const response = await dynamoDbClient.scan(
+            {
+                TableName: userTableName
+            }).promise();
 
         return response.Items
     }

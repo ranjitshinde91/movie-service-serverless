@@ -8,8 +8,8 @@ const env = () => {
 };
 
 function userTableName() {
-    const defaultTable = 'users';
-    return process.env.UserTableName || defaultTable;
+    const defaultTableName = 'users';
+    return process.env.UserTableName || defaultTableName;
 }
 
 const localDynamoDbEndpoint = function () {
