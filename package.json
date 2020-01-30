@@ -1,15 +1,15 @@
 {
-  "name": "user-service-serverless",
+  "name": "movie-service-serverless",
   "version": "1.0.0",
-  "description": "user-service-serverless",
+  "description": "movie-service-serverless",
   "scripts": {
-    "test": "env NODE_ENV=local AwsRegion=us-east-1 nyc --reporter=html --reporter=lcov --reporter=text mocha test/user-service/*",
+    "test": "env NODE_ENV=local AwsRegion=us-east-1 nyc --reporter=html --reporter=lcov --reporter=text mocha test/movie-service/*",
     "delay": "sleep 15",
-    "clearFiles": "rm -f src/user-service/user-service.zip",
+    "clearFiles": "rm -f src/movie-service/movie-service.zip",
     "localstack:init": "docker-compose -f test/docker-compose.yml up -d",
     "localstack:destroy": "docker-compose -f test/docker-compose.yml down",
-    "localstack:config-user-service": "cd src/user-service/ && npm run localstack:config",
-    "pretest": "npm run localstack:destroy && npm run localstack:init && npm run delay && npm run localstack:config-user-service",
+    "localstack:config-movie-service": "cd src/movie-service/ && npm run localstack:config",
+    "pretest": "npm run localstack:destroy && npm run localstack:init && npm run delay && npm run localstack:config-movie-service",
     "posttest": "npm run localstack:destroy && npm run clearFiles"
   },
   "author": "",

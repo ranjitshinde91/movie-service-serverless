@@ -7,9 +7,9 @@ const env = () => {
     return process.env.Env || defaultEnvironment;
 };
 
-function userTableName() {
-    const defaultTableName = 'users';
-    return process.env.UserTableName || defaultTableName;
+function movieTableName() {
+    const defaultTableName = 'movies';
+    return process.env.MovieTableName || defaultTableName;
 }
 
 const localDynamoDbEndpoint = function () {
@@ -35,6 +35,6 @@ function dynamoDbClient() {
 }
 
 module.exports = {
-    userTableName,
+    movieTableName,
     dynamoDbClient
 };

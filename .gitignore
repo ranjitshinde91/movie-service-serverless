@@ -1,6 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
-user-service-serverless.iml
+movie-service-serverless.iml
 coverage
 .nyc_output
 dist

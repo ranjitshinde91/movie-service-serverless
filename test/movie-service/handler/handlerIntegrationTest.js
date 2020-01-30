@@ -1,5 +1,5 @@
-const UserFixture = require("../fixture/UserFixture");
-const User = require("../../../src/user-service/src/model/User");
+const MovieFixture = require("../fixture/MovieFixture");
+const Movie = require("../../../src/movie-service/src/model/Movie");
 
 const fs = require("fs");
 const path = require("path");
@@ -15,29 +15,29 @@ describe("handler (Integration)", () => {
 
     beforeEach(async () => {
         apiId = fs.readFileSync(path.resolve("test/scripts/.api_id"), "utf8").trim();
-        await UserFixture.deleteAll();
+        await MovieFixture.deleteAll();
     });
 
-    it("should return user given user exists for a user id", (async function () {
-        const userId = "user-101";
-        const username = "John";
+    it("should return movie given movie exists for a movie id", (async function () {
+        const movieId = "movie-101";
+        const movieName = "Tumbbad";
 
-        await UserFixture.save(new User(userId, username));
+        await MovieFixture.save(new Movie(movieId, movieName));
 
-        const apiUrl = `http://localhost:4567/restapis/${apiId}/test/_user_request_/users/${userId}`;
+        const apiUrl = `http://localhost:4567/restapis/${apiId}/test/_user_request_/movies/${movieId}`;
 
         const response = await axios.default.get(apiUrl);
 
         expect(response.status).to.equal(200);
 
-        const user = response.data;
-        expect(user.userId).to.be.equal(userId);
-        expect(user.username).to.be.equal(username);
+        const movie = response.data;
+        expect(movie.movieId).to.be.equal(movieId);
+        expect(movie.name).to.be.equal(movieName);
     })).timeout(15000);
 
-    it("should return http status not found given user does not exists for a user id", (async function () {
+    it("should return http status not found given movie does not exists for a movie id", (async function () {
 
-        const apiUrl = `http://localhost:4567/restapis/${apiId}/test/_user_request_/users/non-existing-user-id`;
+        const apiUrl = `http://localhost:4567/restapis/${apiId}/test/_user_request_/movies/non-existing-movie-id`;
 
         await assertNotFoundOn(apiUrl);
     })).timeout(15000);

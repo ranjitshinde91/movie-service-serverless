@@ -1,22 +1,22 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "user service Cloud formation template"
+Description: "movie service Cloud formation template"
 
 Resources:
-  UserServiceFunction:
+  MovieServiceFunction:
     Type: "AWS::Lambda::Function"
     Properties:
-      FunctionName: "user-service"
+      FunctionName: "movie-service"
       Code:
-        S3Bucket: "user-service"
-        S3Key: "user-service.zip"
+        S3Bucket: "movie-service"
+        S3Key: "movie-service.zip"
       Handler: "handler.handle"
       Runtime: "nodejs10.x"
-      Role:  !GetAtt "UserServiceFunctionRole.Arn"
+      Role:  !GetAtt "MovieServiceFunctionRole.Arn"
 
-  UserServiceFunctionRole:
+  MovieServiceFunctionRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: "UserServiceFunctionRole"
+      RoleName: "MovieServiceFunctionRole"
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -27,32 +27,32 @@ Resources:
               Service:
                 - "lambda.amazonaws.com"
                 -
-  UserServiceApiGateway:
+  MovieServiceApiGateway:
     Type: AWS::ApiGateway::RestApi
     Properties:
-      Name: "user-service-api-gw"
+      Name: "movie-service-api-gw"
 
-  UsersResource:
+  MoviesResource:
     Type: AWS::ApiGateway::Resource
     Properties:
-      ParentId: !GetAtt "UserServiceApiGateway.RootResourceId"
-      PathPart: "users" #users
-      RestApiId: !Ref "UserServiceApiGateway"
+      ParentId: !GetAtt "MovieServiceApiGateway.RootResourceId"
+      PathPart: "movies" #movies
+      RestApiId: !Ref "MovieServiceApiGateway"
 
-  UserIdResource:
+  MovieIdResource:
     Type: AWS::ApiGateway::Resource
     Properties:
-      ParentId: !Ref "UsersResource"
-      PathPart: "{userId}"  #users/{user-id}
-      RestApiId: !Ref "UserServiceApiGateway"
+      ParentId: !Ref "MoviesResource"
+      PathPart: "{movieId}"  #movies/{movieId}
+      RestApiId: !Ref "MovieServiceApiGateway"
 
-  GetUserByUserIdMethod:
+  GetMovieByMovieIdMethod:
     Type: AWS::ApiGateway::Method
     Properties:
       HttpMethod: "GET"
       AuthorizationType: "NONE"
-      RestApiId: !Ref "UserServiceApiGateway"
-      ResourceId: !Ref "UserIdResource"
+      RestApiId: !Ref "MovieServiceApiGateway"
+      ResourceId: !Ref "MovieIdResource"
       Integration:
         IntegrationHttpMethod: "GET"
         Type: "AWS_PROXY"
@@ -65,17 +65,17 @@ Resources:
               - Ref: AWS::Region
               - :lambda:path/2015-03-31/functions/
               - Fn::GetAtt:
-                  - UserServiceFunction
+                  - MovieServiceFunction
                   - Arn
               - /invocations
               -
-  NudgeAssociationTable:
+  MoviesTable:
     Type: "AWS::DynamoDB::Table"
     Properties:
-      TableName: "users"
+      TableName: "movies"
       AttributeDefinitions:
-        - AttributeName: "userId"
+        - AttributeName: "movieId"
           AttributeType: "S"
       KeySchema:
-        - AttributeName: "userId"
+        - AttributeName: "movieId"
           KeyType: "HASH"

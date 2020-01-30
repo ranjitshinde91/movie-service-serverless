@@ -1,9 +1,9 @@
 {
-  "name": "user-service-serverless",
+  "name": "movie-service-serverless",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "archive": "npm i && zip -r user-service.zip src/ node_modules handler.js",
+    "archive": "npm i && zip -r movie-service.zip src/ node_modules handler.js",
     "localstack:config": "npm run archive && npm run run:config",
     "run:config": "cd ../../test/scripts && ./config.sh"
   },

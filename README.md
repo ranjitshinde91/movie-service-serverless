@@ -1,1 +1,1 @@
-# user-service-serverless
+# movie-service-serverless
