@@ -5,3 +5,6 @@ fileignoreconfig:
 - filename: src/movie-service/package-lock.json
   checksum: 3085bb0af39aa415349e80f16ee18fba01f2201ce4f7d99234478dc98125d310
   ignore_detectors: []
+- filename: package-lock.json
+  checksum: 571afbd91f1517eaba8b8166c72be5af78078cb978ce82e1b722c71b7bbe00fd
+  ignore_detectors: []
