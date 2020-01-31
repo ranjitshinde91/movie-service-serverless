@@ -19,7 +19,7 @@ class MovieController {
         console.log(`returning success response.`);
         return {
             "statusCode": 200,
-            "body": movie,
+            "body": JSON.stringify(movie),
             "headers": {
                 "Content-Type": "application/json"
             }

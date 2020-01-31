@@ -18,7 +18,7 @@ describe("handler (Integration)", () => {
         await MovieFixture.deleteAll();
     });
 
-    it("should return movie given movie exists for a movie id", (async function () {
+    it("should return success response given movie exists", (async function () {
         const movieId = "movie-101";
         const movieName = "Tumbbad";
 
@@ -35,7 +35,7 @@ describe("handler (Integration)", () => {
         expect(movie.name).to.be.equal(movieName);
     })).timeout(15000);
 
-    it("should return http status not found given movie does not exists for a movie id", (async function () {
+    it("should return not found response given movie does not exists", (async function () {
 
         const apiUrl = `http://localhost:4567/restapis/${apiId}/test/_user_request_/movies/non-existing-movie-id`;
 
