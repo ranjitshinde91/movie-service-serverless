@@ -39,7 +39,7 @@ describe("MovieController", () => {
 
         const response = await movieController.handle(findMovieRequest);
 
-        expect(response.body).to.be.eql(new Movie(movieId, movieName));
+        expect(JSON.parse(response.body)).to.be.eql(new Movie(movieId, movieName));
     }));
 
     it("should return application/json as Content-Type given movie exists", test(async function () {

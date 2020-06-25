@@ -9,7 +9,7 @@ const chai = require("chai");
 const expect = chai.expect;
 
 describe("handlerUnitTest", () => {
-    it("should return the response returned by MovieController", test(async function () {
+    it("should return the exact response returned by MovieController", test(async function () {
         const event = {};
 
         this.stub(MovieController.prototype, "handle").returns({statusCode: 404});
