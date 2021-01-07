@@ -9,8 +9,7 @@
     "localstack:init": "docker-compose -f test/docker-compose.yml up -d",
     "localstack:destroy": "docker-compose -f test/docker-compose.yml down",
     "localstack:config-movie-service": "cd src/movie-service/ && npm run localstack:config",
-    "pretest": "npm run localstack:destroy && npm run localstack:init && npm run delay && npm run localstack:config-movie-service",
-    "posttest": "npm run localstack:destroy && npm run clearFiles"
+    "pretest": "npm run localstack:destroy && npm run localstack:init && npm run delay && npm run localstack:config-movie-service"
   },
   "author": "",
   "devDependencies": {

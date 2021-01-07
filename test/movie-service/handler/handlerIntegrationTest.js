@@ -24,9 +24,11 @@ describe("handler (Integration)", () => {
 
         await MovieFixture.save(new Movie(movieId, movieName));
 
-        const apiUrl = `http://localhost:4567/restapis/${apiId}/test/_user_request_/movies/${movieId}`;
+        const apiUrl = `http://localhost:4566/restapis/${apiId}/test/_user_request_/movies/${movieId}`;
 
         const response = await axios.default.get(apiUrl);
+
+        console.log(response);
 
         expect(response.status).to.equal(200);
 
@@ -37,7 +39,7 @@ describe("handler (Integration)", () => {
 
     it("should return not found response given movie does not exists", (async function () {
 
-        const apiUrl = `http://localhost:4567/restapis/${apiId}/test/_user_request_/movies/non-existing-movie-id`;
+        const apiUrl = `http://localhost:4566/restapis/${apiId}/test/_user_request_/movies/non-existing-movie-id`;
 
         await assertNotFoundOn(apiUrl);
     })).timeout(15000);

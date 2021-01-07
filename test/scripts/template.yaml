@@ -27,11 +27,25 @@ Resources:
               Service:
                 - "lambda.amazonaws.com"
                 -
+
+  RolePolicies:
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: "MovieServiceFunctionRolePolicy"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Action: "*"
+            Resource: "*"
+      Roles:
+        - !Ref "MovieServiceFunctionRole"
+  
   MovieServiceApiGateway:
     Type: AWS::ApiGateway::RestApi
     Properties:
       Name: "movie-service-api-gw"
-
+    
   MoviesResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -45,6 +59,14 @@ Resources:
       ParentId: !Ref "MoviesResource"
       PathPart: "{movieId}"  #movies/{movieId}
       RestApiId: !Ref "MovieServiceApiGateway"
+      
+  UserServiceGatewayDeployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn:
+      - GetMovieByMovieIdMethod
+    Properties:
+      RestApiId: !Ref MovieServiceApiGateway
+      StageName: test
 
   GetMovieByMovieIdMethod:
     Type: AWS::ApiGateway::Method

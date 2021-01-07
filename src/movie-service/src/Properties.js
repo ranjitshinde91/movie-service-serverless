@@ -14,13 +14,18 @@ function movieTableName() {
 
 const localDynamoDbEndpoint = function () {
     const host = process.env.LOCALSTACK_HOSTNAME || 'localhost';
-    return `http://${host}:4569`;
+    return `http://${host}:4566`;
 };
 
 const isLocalEnv = () => env() === 'local';
 
 const dynamoDbClientOptions = function () {
     if (isLocalEnv()) {
+        AWSSDK.config.update({
+            accessKeyId: "accessKey",
+            secretAccessKey: "secretKey",
+            region: "us-east-1"   
+        });
         return {
             region: 'us-east-1',
             endpoint: localDynamoDbEndpoint()

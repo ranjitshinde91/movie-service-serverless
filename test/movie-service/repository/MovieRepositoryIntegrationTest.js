@@ -19,6 +19,7 @@ describe("MovieRepositoryIntegrationTest", () => {
 
         const movie = await new MovieRepository().findBy(movieId);
 
+        
         expect(movie.movieId).to.be.eql(movieId);
         expect(movie.name).to.be.eql(movieName);
     });

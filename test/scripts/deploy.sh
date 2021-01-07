@@ -6,6 +6,6 @@ aws cloudformation deploy \
 --stack-name movie-service \
 --region us-east-1 \
 --capabilities CAPABILITY_IAM  \
---endpoint-url http://localhost:4581
+--endpoint-url http://localhost:4566
 
 echo 'deployment for infra on localstack'
